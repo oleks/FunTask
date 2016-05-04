@@ -1,10 +1,10 @@
 # FunTask
 
 FunTask is a typed, functional command language and interpreter, intended as an
-alternative to contemporary, textual ``shells''. \funtask{} draws on ideas from
+alternative to contemporary, textual "shells". FunTask draws on ideas from
 functional programming, to provide a cleaner programming interface, while
 retaining ideas from established, imperative shells, in order to maintain a
-``natural'' interface.
+"natural" interface.
 
 [![MIT
 licensed](https://img.shields.io/badge/license-BSD3-blue.svg)](https://raw.githubusercontent.com/oleks/FunTask/master/LICENSE)
