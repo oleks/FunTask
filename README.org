@@ -22,7 +22,7 @@ children, etc.
 To make dealing with tasks easier, FunTask is therefore not just an
 interpreter, but an also a compiler, compiling FunTask scripts to fit the
 operating system task model and gain a range of security and execution
-environment features for free by leveraging operating system features.
+environment features for free by leveraging the operating system.
 
 [[https://raw.githubusercontent.com/oleks/FunTask/master/LICENSE][https://img.shields.io/badge/license-BSD3-blue.svg]]
 
