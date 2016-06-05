@@ -13,11 +13,11 @@ task shares system resources with other tasks on the system. The Linux kernel
 takes this a step further, and allows varying levels of system resource
 sharing.
 
-Many kernel security features rely on the notion of a task. For instance, a
-task may irrevocably decrease the resource limits for itself and its children,
-irrevocably enter a so-called process control group, temporarily gain
-capabilities without these capabilities being inheritable by the task's
-children, etc.
+Many kernel security features rely on the notion of a thread, process, or task.
+For instance, a task may irrevocably decrease the resource limits for itself
+and its children, irrevocably enter a so-called process control group,
+temporarily gain capabilities without these capabilities being inheritable by
+the task's children, etc.
 
 To make dealing with tasks easier, FunTask is not just an interpreter, but also
 a compiler. FunTask compiles scripts to fit the operating system task model and
