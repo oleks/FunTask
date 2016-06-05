@@ -7,6 +7,23 @@ FunTask draws on ideas from functional programming, to provide a cleaner
 programming experience, while retaining a natural command-line interface,
 similar to established, imperative shells.
 
+FunTask revolves around the notion of an operating system "task". Classically,
+a task is either a thread or a process, depending on the extent to which the
+task shares system resources with other tasks on the system. The Linux kernel
+takes this a step further, and allows varying levels of system resource
+sharing.
+
+Many kernel security features rely on the notion of a task. For instance, a
+task may irrevocably decrease the resource limits for itself and its children,
+irrevocably enter a so-called process control group, temporarily gain
+capabilities without these capabilities being inheritable by the task's
+children, etc.
+
+To make dealing with tasks easier, FunTask is therefore not just an
+interpreter, but an also a compiler, compiling FunTask scripts to fit the
+operating system task model and gain a range of security and execution
+environment features for free by leveraging operating system features.
+
 [[https://raw.githubusercontent.com/oleks/FunTask/master/LICENSE][https://img.shields.io/badge/license-BSD3-blue.svg]]
 
 ** Installation
