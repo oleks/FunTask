@@ -19,10 +19,10 @@ irrevocably enter a so-called process control group, temporarily gain
 capabilities without these capabilities being inheritable by the task's
 children, etc.
 
-To make dealing with tasks easier, FunTask is therefore not just an
-interpreter, but an also a compiler, compiling FunTask scripts to fit the
-operating system task model, gaining a range of security and execution
-environment features by merely leveraging the operating system.
+To make dealing with tasks easier, FunTask is not just an interpreter, but an
+also a compiler. FunTask compiles scripts to fit the operating system task
+model and gain a range of execution environment features (e.g., wrt. security)
+by merely leveraging the operating system.
 
 [[https://raw.githubusercontent.com/oleks/FunTask/master/LICENSE][https://img.shields.io/badge/license-BSD3-blue.svg]]
 
