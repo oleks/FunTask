@@ -1,7 +1,7 @@
 #+TITLE: Functional Programming with Tasks
 
 FunTask is a typed, functional command language and interpreter, intended as an
-alternative to contemporary, textual shells.
+alternative to contemporary, imperative shells.
 
 FunTask draws on ideas from functional programming, to provide a cleaner
 programming experience, while retaining a natural command-line interface,
