@@ -20,6 +20,7 @@ trap finish EXIT
 function f {
   cd "${fdir}"
 
+  # Show that trap is subshell-sensitive.
   gdir=$(mktemp -d -p .)
   echo "Created $(readlink -f "$gdir")"
   function finish {
