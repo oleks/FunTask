@@ -3,6 +3,8 @@
 # Exhibit how to call a shell function in a subshell. As a side-effect, exhibit
 # how to respond to a signal with a function.
 
+set -euo pipefail
+
 # The typical use for a subshell is temporarily change the working directory,
 # so let's set up a temporary directory to change to.
 
