@@ -9,22 +9,22 @@ set -euo pipefail
 # so let's set up a temporary directory to change to.
 
 # Set up a temporary directory and purge it on exit.
-rootdir=$(mktemp -d -p .)
-echo "Created $(readlink -f "$rootdir")"
+fdir=$(mktemp -d -p .)
+echo "Created $(readlink -f "$fdir")"
 function finish {
-  echo "Removing $(readlink -f "$rootdir")"
-  rmdir "$rootdir"
+  echo "Removing $(readlink -f "$fdir")"
+  rmdir "$fdir"
 }
 trap finish EXIT
 
 function f {
-  cd "${rootdir}"
+  cd "${fdir}"
 
-  fdir=$(mktemp -d -p .)
-  echo "Created $(readlink -f "$fdir")"
+  gdir=$(mktemp -d -p .)
+  echo "Created $(readlink -f "$gdir")"
   function finish {
-    echo "Removing $(readlink -f "$fdir")"
-    rmdir "$fdir"
+    echo "Removing $(readlink -f "$gdir")"
+    rmdir "$gdir"
   }
   trap finish EXIT
 }
