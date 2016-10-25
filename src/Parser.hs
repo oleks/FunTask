@@ -1,9 +1,9 @@
-module Parser (
-    parseString,
-    parseFile
+module Parser
+  ( parseString
+  , parseFile
   ) where
 
-import Parser.Impl (
-    parseString,
-    parseFile
+import Parser.Impl
+  ( parseString
+  , parseFile
   )
