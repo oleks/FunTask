@@ -20,3 +20,8 @@ executable FunTask
                      , haskeline >= 0.7.2.3
                      , transformers >= 0.5.2.0
                      , process >= 1.4.2.0
+  other-modules:      Ast
+                    , Interp
+                    , Interp.Impl
+                    , Parser
+                    , Parser.Impl
