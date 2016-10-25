@@ -5,7 +5,9 @@ contemporary, imperative shells.
 
 FunTask draws on ideas from functional programming, to provide a cleaner
 programming experience, while retaining a natural command-line interface,
-similar to established shells.
+similar to established shells. Although "functional programming" may sound
+esoteric, FunTask comes with few changes to fundamental command execution.
+Changes are bound to control structures and interprocess communication.
 
 FunTask revolves around the notion of an operating system "task". Classically,
 a task is either a thread or a process, depending on the extent to which the
