@@ -16,18 +16,18 @@ data Error = NoCommands
 
 createPipe :: [Command] -> (Handle, Handle, Handle) -> IO [ProcessHandle]
 createPipe [] _ = return []
-createPipe [(Com fPath args)] (hin, hOut, hErr) = do
+createPipe [(Com fPath args)] (hIn, hOut, hErr) = do
   (_, _, _, pHndl) <-
     createProcess (proc fPath args) {
-        std_in = UseHandle hin,
+        std_in = UseHandle hIn,
         std_out = UseHandle hOut,
         std_err = UseHandle hErr
       }
   return [pHndl]
-createPipe ((Com fPath args) : pipe) (hin, hOut, hErr) = do
+createPipe ((Com fPath args) : pipe) (hIn, hOut, hErr) = do
   (_, Just hPipeOut, _, pHndl) <-
     createProcess (proc fPath args) {
-        std_in = UseHandle hin,
+        std_in = UseHandle hIn,
         std_out = CreatePipe,
         std_err = UseHandle hErr
       }
