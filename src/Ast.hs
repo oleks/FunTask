@@ -1,6 +1,6 @@
 module Ast where
 
-data ComScr
+data Command
   = Com FilePath [String]
   | Scr Script
   deriving (Show, Eq)
@@ -12,13 +12,13 @@ data Pattern
   deriving (Show, Eq)
 
 data Case
-  = Case Pattern ComScrCase
+  = Case Pattern CommandCase
   deriving (Show, Eq)
 
-data ComScrCase
-  = ComScrCase ComScr [ComScr] [Case]
+data CommandCase
+  = CommandCase Command [Command] [Case]
   deriving (Show, Eq)
 
 newtype Script
-  = Script [ComScrCase]
+  = Script [CommandCase]
   deriving (Show, Eq)

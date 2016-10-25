@@ -75,18 +75,18 @@ pExitCode = do
 pWildcard :: ReadP Pattern
 pWildcard = fixedToken "_" Wildcard
 
-pPipeline :: ReadP (ComScr, [ComScr])
+pPipeline :: ReadP (Command, [Command])
 pPipeline = do
-  pipeline <- sepBy1 pComScr (skipString "|")
+  pipeline <- sepBy1 pCommand (skipString "|")
   return $ (head pipeline, tail pipeline)
 
-pComScr :: ReadP ComScr
-pComScr = pCom <|> pScr
+pCommand :: ReadP Command
+pCommand = pCom <|> pScr
 
-pScr :: ReadP ComScr
+pScr :: ReadP Command
 pScr = fmap Scr $ script (skipString "{") (string "}") pScript
 
-pCom :: ReadP ComScr
+pCom :: ReadP Command
 pCom = do
   filePath <- pWord
   cmdLineArgs <- many pWord
@@ -97,14 +97,14 @@ pWord = token $ munch1 (`elem`
   (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ "-+_/."))
 
 pScript :: ReadP Script
-pScript = fmap Script (sepBy pComScrCase eol)
+pScript = fmap Script (sepBy pCommandCase eol)
 
-pComScrCase :: ReadP ComScrCase
-pComScrCase = do
+pCommandCase :: ReadP CommandCase
+pCommandCase = do
   (first, rest) <- pPipeline
   -- Don't do eol here, as the last command may not be terminated by a \n.
   cases <- option [] pCases
-  return $ ComScrCase first rest cases
+  return $ CommandCase first rest cases
 
 pCases :: ReadP [Case]
 pCases = (skipToken $ char '\n') >> many1 (pCase)
@@ -113,8 +113,8 @@ pCase :: ReadP Case
 pCase = do
   pattern <- pPattern
   skipToken $ char ')'
-  comScrCase <- pComScrCase
-  return $ Case pattern comScrCase
+  commandCase <- pCommandCase
+  return $ Case pattern commandCase
 
 parseString :: String -> Either (ParseError Script) Script
 parseString = parseAll pScript
