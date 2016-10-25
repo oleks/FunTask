@@ -14,24 +14,27 @@ import Ast
 
 data Error = NoCommands
 
+
 pipeline :: [Command] -> (Handle, Handle, Handle) -> IO [ProcessHandle]
-pipeline [] _ = return []
-pipeline [(Com fPath args)] (hIn, hOut, hErr) = do
-  (_, _, _, pHndl) <-
-    createProcess (proc fPath args) {
-        std_in = UseHandle hIn,
-        std_out = UseHandle hOut,
-        std_err = UseHandle hErr
-      }
-  return [pHndl]
-pipeline ((Com fPath args) : cmds) (hIn, hOut, hErr) = do
-  (_, Just hPipeOut, _, pHndl) <-
-    createProcess (proc fPath args) {
-        std_in = UseHandle hIn,
-        std_out = CreatePipe,
-        std_err = UseHandle hErr
-      }
-  fmap (pHndl :) $ pipeline cmds (hPipeOut, hOut, hErr)
+pipeline = pipeline' []
+  where
+    pipeline' hs [] _ = return hs
+    pipeline' hs [(Com fPath args)] (hIn, hOut, hErr) = do
+      (_, _, _, h) <-
+        createProcess (proc fPath args) {
+          std_in = UseHandle hIn,
+          std_out = UseHandle hOut,
+          std_err = UseHandle hErr
+        }
+      return (h : hs)
+    pipeline' hs ((Com fPath args) : cmds) (hIn, hOut, hErr) = do
+      (_, Just hPipeOut, _, h) <-
+        createProcess (proc fPath args) {
+          std_in = UseHandle hIn,
+          std_out = CreatePipe,
+          std_err = UseHandle hErr
+        }
+      pipeline' (h : hs) cmds (hPipeOut, hOut, hErr)
 
 interpPipe :: [Command] -> IO ExitCode
 interpPipe cmds = do
