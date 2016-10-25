@@ -14,9 +14,9 @@ import Ast
 
 data Error = NoCommands
 
-createPipe :: [Command] -> (Handle, Handle, Handle) -> IO [ProcessHandle]
-createPipe [] _ = return []
-createPipe [(Com fPath args)] (hIn, hOut, hErr) = do
+pipeline :: [Command] -> (Handle, Handle, Handle) -> IO [ProcessHandle]
+pipeline [] _ = return []
+pipeline [(Com fPath args)] (hIn, hOut, hErr) = do
   (_, _, _, pHndl) <-
     createProcess (proc fPath args) {
         std_in = UseHandle hIn,
@@ -24,18 +24,18 @@ createPipe [(Com fPath args)] (hIn, hOut, hErr) = do
         std_err = UseHandle hErr
       }
   return [pHndl]
-createPipe ((Com fPath args) : pipe) (hIn, hOut, hErr) = do
+pipeline ((Com fPath args) : cmds) (hIn, hOut, hErr) = do
   (_, Just hPipeOut, _, pHndl) <-
     createProcess (proc fPath args) {
         std_in = UseHandle hIn,
         std_out = CreatePipe,
         std_err = UseHandle hErr
       }
-  fmap (pHndl :) $ createPipe pipe (hPipeOut, hOut, hErr)
+  fmap (pHndl :) $ pipeline cmds (hPipeOut, hOut, hErr)
 
 interpPipe :: [Command] -> IO ExitCode
-interpPipe pipe = do
-  pHndls <- createPipe pipe (stdin, stdout, stderr)
+interpPipe cmds = do
+  pHndls <- pipeline cmds (stdin, stdout, stderr)
   waitOrReturn pHndls
   where
     waitOrReturn [] = return ExitSuccess
